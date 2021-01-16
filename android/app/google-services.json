@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "199117070824",
+    "project_id": "hpv-reactnative",
+    "storage_bucket": "hpv-reactnative.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199117070824:android:2fe2a5eeb5704c120b045d",
+        "android_client_info": {
+          "package_name": "com.niceproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199117070824-m6qoceqsrfb04t685esqp9gfgp232636.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnwj0fwdUMUaBWhaflBDzQmQuo0cQyBJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199117070824-m6qoceqsrfb04t685esqp9gfgp232636.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
