@@ -38,8 +38,6 @@ const Login = ({navigation}) => {
     });
   };
 
-  
-
   const goBack = () => {
     navigation.goBack();
   };
@@ -84,7 +82,7 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.wrapper.page}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <IconBack source={IconBack} width={20} height={25} onPress={goBack} />
+        {/* <IconBack source={IconBack} width={20} height={25} onPress={goBack} /> */}
         <IllustrationLogin
           width={200}
           height={120}
@@ -115,7 +113,11 @@ const Login = ({navigation}) => {
 
 const styles = {
   wrapper: {
-    page: {padding: 20},
+    page: {
+      padding: 20,
+      backgroundColor: '#b7d4ed',
+      flex: 1,
+    },
   },
   iconBack: {width: 25, height: 25, backgroundColor: 'blue'},
   illustration: {marginTop: 8},
@@ -123,7 +125,7 @@ const styles = {
     desc: {
       fontSize: 14,
       fontWeight: 'bold',
-      color: colors.default,
+      color: 'black',
       marginTop: 16,
       maxWidth: 200,
     },

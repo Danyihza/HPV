@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Button } from 'react-native'
 import { useSelector } from 'react-redux';
+// import { Container, Header, Content, Button, Icon, Text } from 'native-base';
 
-// import { Text } from 'galio-framework'
 
 const Home = () => {
   const globalState = useSelector((state) => state);
@@ -15,21 +15,18 @@ const Home = () => {
 
 
     useEffect(() => {
-        // AsyncStorage.getItem('uid', (error, result) => {
-        //     if(result){
-        //         const uid = result;
-        //         setUid({
-        //             uid:uid
-        //         })
-        //     }
-        // });
-        // console.log('getUid.uid');
-        
+        getFullName();
     })
 
-    const getFullName = () => {
-        console.log(AsyncStorage.getItem('fname'));
+    const getFullName = async () => {
+        await AsyncStorage.getItem('fname')
+        .then((result) => {
+            setUid({
+                name:result
+            })
+        }).done()
     }
+
 
     const getUserData = async () => {
         await fetch(`${globalState.url}api/auth/getUser?uid=${getUid.uid}`)
@@ -43,12 +40,22 @@ const Home = () => {
                 console.error(error);
         });
     }
-        
-    return (
-        <View>
-            <Text p muted>ini {(val) => getFullName()}</Text>
-        </View>
-    )
+
+    var button = [];
+    for (let index = 0; index < 6; index++) {
+        button.push(
+            <Button key={index} title='d' >info</Button>
+        )
+    }
+    
+        return (
+            <View>
+                <Text>ini {getUid.name}</Text>
+                
+
+            </View>
+        );
+    
 }
 
 export default Home

@@ -1,5 +1,5 @@
 export const colors = {
-    default : '#A55EEA',
+    default : '#F9A826',
     disable : '#A5B1C2',
     dark : '#474747',
     text: {

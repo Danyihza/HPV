@@ -2,15 +2,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect } from 'react';
 import {View, Text, Image} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {splashScreen} from '../../assets';
+import {SplashScreen} from '../../assets';
 
 
 const Splash = ({navigation}) => {
     useEffect(() => {
-        setTimeout( async() =>{
+        setTimeout(async () =>{
             const userData = await AsyncStorage.getItem('uid');
             if (userData != undefined || userData != null) {
-                navigation.replace('Home');
+                navigation.replace('WelcomeAuth');
             } else {
                 navigation.replace('WelcomeAuth');
             }
@@ -19,7 +19,11 @@ const Splash = ({navigation}) => {
 
     return (
         <View style={styles.splash.container}>
-            <Image source={splashScreen} style={styles.splash.backgroundImage} />
+            <Image source={SplashScreen} style={styles.splash.backgroundImage} />
+            {/* <SplashScreen
+            width={200}
+            height={120}
+            /> */}
         </View>
     )
 }
@@ -28,8 +32,8 @@ const styles = {
     splash: {
         backgroundImage: {
             flex: 1,
-            resizeMode: 'stretch',
-            // width: '100%',
+            resizeMode: 'cover',
+            width: '100%',
         },
         container : {
             flex: 1,

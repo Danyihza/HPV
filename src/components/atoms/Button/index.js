@@ -18,6 +18,7 @@ const Button = ({title, onPress}) => {
 const styles = {
     wrapper : {
         component: {
+            // paddingHorizontal: 100,
             backgroundColor: colors.default,
             borderRadius: 25,
             paddingVertical: 13,

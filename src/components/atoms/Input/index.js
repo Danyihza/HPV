@@ -12,9 +12,10 @@ export default Input
 
 const styles = StyleSheet.create({
     input: {
-        borderWidth: 1,
+        // borderWidth: 1,
         borderColor: colors.default,
         borderRadius: 25,
+        backgroundColor: 'white',
         paddingVertical:12,
         paddingHorizontal:18,
         fontSize:14,
