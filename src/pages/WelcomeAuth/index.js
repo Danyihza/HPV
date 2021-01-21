@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StatusBar} from 'react-native';
 import { colors } from '../../utils';
 import ActionButton from './ActionButton';
 import {Obat, welcomeAuth} from '../../assets'
 
 const WelcomeAuth = ({navigation}) => {
+    StatusBar.setBarStyle("dark-content");
+    StatusBar.setBackgroundColor("rgba(0,0,0,0)");
+    StatusBar.setTranslucent(true);
   const handleGoTo = (screen) => {
     navigation.navigate(screen)
   }
@@ -47,7 +50,7 @@ const styles = {
             alignItems: 'center',
             justifyContent: 'center',
             flex: 1,
-            backgroundColor: '#b7d4ed'
+            backgroundColor: colors.background
         },
         illustration : {
             // width: 219,

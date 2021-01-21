@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View,Text } from 'react-native';
+import { View,Text, Alert } from 'react-native';
 import { Button, Input } from '../../components';
 import { colors } from '../../utils';
 import {IconBack, IllustrationRegister} from '../../assets';
@@ -7,55 +7,93 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-community/async-storage';
+import { StackActions } from '@react-navigation/native';
 
-
-const Register = ({navigation}) => {
+const Register = ({route, navigation}) => {
+  const {email} = route.params;
   const globalState = useSelector((state) => state);
   const [formRegister, setForm] = useState({
     fullName: '',
-    email: '',
+    email: email,
     password: '',
+    confpassword: '',
   });
 
-  // useEffect(() => {
-  //   fetch('https://reactnative.dev/movies.json')
-  //   .then((response) => response.json())
-  //   .then((json) => {
-  //     console.log(json.movies);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // })
+  useEffect(() => {
+  })
 
   const sendData = () => {
-    console.log('data yang dikirim:', formRegister);
-    auth()
-    .createUserWithEmailAndPassword(formRegister.email, formRegister.password)
-    .then((user) => {
-      const uid = user.user._user.uid;
-      const email = user.user._user.email;
-      const fname = formRegister.fullName;
-      console.log('User account created & signed in!', user);
-      addUser(uid, email, fname);
-      AsyncStorage.setItem('uid', uid);
-      AsyncStorage.setItem('fname', fname);
-      navigation.navigate('Home');
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
+    // console.log('data yang dikirim:', formRegister);
+    if (formRegister.email === '' || formRegister.fullName === '' || formRegister.password === '' || formRegister.confpassword === '') {
+      // SweetAlert.showAlertWithOptions({
+      //   title: '',
+      //   subTitle: '',
+      //   confirmButtonTitle: 'OK',
+      //   confirmButtonColor: '#000',
+      //   otherButtonTitle: 'Cancel',
+      //   otherButtonColor: '#dedede',
+      //   style: 'success',
+      //   cancellable: true
+      // },
+      //   callback => console.log(callback));
+      Alert.alert(
+        "Warning",
+        "Lengkapi semua kolom",
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("Ok")
+          }
+        ],
+        { cancelable: true}
+      );
+    } else {
+      if (formRegister.password !== formRegister.confpassword) {
+        Alert.alert(
+          "Warning",
+          "Password tidak sama",
+          [
+            {
+              text: "OK",
+              onPress: () => console.log("Ok")
+            }
+          ],
+          { cancelable: false}
+        );
+        
+      } else {
+        auth()
+        .createUserWithEmailAndPassword(formRegister.email, formRegister.confpassword)
+        .then((user) => {
+          const uid = user.user._user.uid;
+          const email = user.user._user.email;
+          const fname = formRegister.fullName;
+          console.log('User account created & signed in!', user);
+          addUser(uid, email, fname);
+          AsyncStorage.setItem('uid', uid);
+          AsyncStorage.setItem('fname', fname);
+          navigation.reset({
+            index: 0,
+            routes:[{name:'Main'}]
+        });
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
 
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
 
-      console.error(error);
-    });
+          console.error(error);
+        });
+      }
+    }
+
   };
 
-  const addUser = async (uid, email, fullname)  => {
+  const addUser = async (uid, email, fullname) => {
     await fetch(`${globalState.url}api/auth/register?user_id=${uid}&fname=${fullname}&email=${email}`, {
       method: 'GET',
       headers: {
@@ -82,21 +120,19 @@ const Register = ({navigation}) => {
   const goBack = () => {
     navigation.goBack();
   };
+
   return (
     <View style={styles.wrapper.page}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <IconBack source={IconBack} width={20} height={25} onPress={goBack} />
-        <IllustrationRegister
-          width={200}
-          height={120}
-          style={styles.illustration}
-        />
-        <Text style={styles.text.desc}>
-          Mohon mengisi beberapa data untuk proses daftar anda
-        </Text>
-        <View style={styles.space(64)} />
+      <ScrollView>
+        <View style={styles.space(20)} />
+        <IconBack width={30} height={30} onPress={goBack}/>
+        <View style={styles.space(30)} />
+        <Text style={styles.text.title}>Sign Up</Text>
+        <Text style={styles.text.desc}>Please fill out this field to sign up</Text>
+        {/* <View style={styles.space(64)} /> */}
         <Input
-          placeholder="Nama Lengkap"
+          autoFocus={true}
+          placeholder="Full Name"
           value={formRegister.fullName}
           onChangeText={(value) => onInputChange(value, 'fullName')}
         />
@@ -113,27 +149,55 @@ const Register = ({navigation}) => {
           onChangeText={(value) => onInputChange(value, 'password')}
           secureTextEntry={true}
         />
-        <View style={styles.space(80)} />
-        <Button title="Daftar" onPress={sendData} />
-      </ScrollView>
+        <View style={styles.space(33)} />
+        <Input
+          placeholder="Confirm password"
+          value={formRegister.confpassword}
+          onChangeText={(value) => onInputChange(value, 'confpassword')}
+          secureTextEntry={true}
+        />
+        </ScrollView>
+        <View style={styles.space(33)} />
+          <Button title="Sign Up" onPress={sendData} />
     </View>
   );
 };
 
 const styles = {
     wrapper: {
-        page: {padding: 20}
+        page: {
+          padding: 20,
+          backgroundColor: colors.background,
+          flex: 1,
+        }
     },
     iconBack : {width: 25, height:25, backgroundColor:'blue'},
     illustration : {marginTop: 8},
     text : {
-        desc: {fontSize:14,fontWeight:'bold',color:colors.default,marginTop:16,maxWidth: 200}
+      desc: {
+        fontSize: 18,
+        fontFamily: 'TypoGotikaRegularDemo',
+      // fontWeight: 'bold',
+        color: 'black',
+        marginTop: 16,
+        marginBottom: 25,
+      // maxWidth: 200,
+    },
+    title: {
+        fontSize: 24,
+        fontFamily: 'TypoGotikaBoldDemo',
+      // fontWeight: 'bold',
+        color: 'black',
+      // marginBottom: 16,
+      // maxWidth: 200,
+    },
+    
     },
     space : value => {
         return {
             height: value
         }
-    }
+    },
 
 }
 

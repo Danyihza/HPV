@@ -4,7 +4,7 @@ import { colors } from '../../../utils'
 
 const Input = ({placeholder, ...rest}) => {
     return (
-        <TextInput style={styles.input} placeholder={placeholder} placeholderTextColor={colors.default} {...rest}/>
+        <TextInput style={styles.input} placeholder={placeholder} placeholderTextColor={'#000000'} {...rest}/>
     )
 }
 
@@ -14,11 +14,13 @@ const styles = StyleSheet.create({
     input: {
         // borderWidth: 1,
         borderColor: colors.default,
-        borderRadius: 25,
-        backgroundColor: 'white',
-        paddingVertical:12,
-        paddingHorizontal:18,
-        fontSize:14,
-        color: colors.default
+        borderBottomWidth: 1,
+        opacity: 0.6,
+        borderRadius: 5,
+        // backgroundColor: 'white',
+        paddingVertical: 9,
+        // paddingHorizontal:10,
+        fontSize: 18,
+        color: '#000000'
     }
 })

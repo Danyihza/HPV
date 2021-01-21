@@ -1,16 +1,19 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect } from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StatusBar} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {SplashScreen} from '../../assets';
 
 
 const Splash = ({navigation}) => {
+    StatusBar.setBarStyle("dark-content");
+    StatusBar.setBackgroundColor("rgba(0,0,0,0)");
+    StatusBar.setTranslucent(true);
     useEffect(() => {
-        setTimeout(async () =>{
+        setTimeout( async () =>{
             const userData = await AsyncStorage.getItem('uid');
             if (userData != undefined || userData != null) {
-                navigation.replace('WelcomeAuth');
+                navigation.replace('Main');
             } else {
                 navigation.replace('WelcomeAuth');
             }

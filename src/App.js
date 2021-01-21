@@ -21,12 +21,10 @@ import Router from './router';
 import { Provider } from 'react-redux';
 import { store } from './redux';
 
-StatusBar.setBarStyle("dark-content");
-StatusBar.setBackgroundColor("rgba(0,0,0,0)");
-StatusBar.setTranslucent(true);
 
 
 const App = () => {
+  
   return (
     <Provider store={store}>
       <NavigationContainer>

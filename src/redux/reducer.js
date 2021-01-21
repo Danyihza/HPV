@@ -1,6 +1,6 @@
 const initialState = {
     name: 'Dany Ahmad',
-    url: 'http://192.168.1.10/HPV-API/'
+    url: 'http://192.168.1.5/HPV-API/'
 }
 
 const reducer = (state = initialState, action) => {

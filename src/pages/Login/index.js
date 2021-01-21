@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import {Button, Input} from '../../components';
 import {colors} from '../../utils';
 import {IconBack, IllustrationLogin} from '../../assets';
@@ -13,15 +13,17 @@ import auth from '@react-native-firebase/auth';
 // });
 
 const Login = ({navigation}) => {
+    StatusBar.setBarStyle("dark-content");
+    StatusBar.setBackgroundColor("rgba(0,0,0,0)");
+    StatusBar.setTranslucent(true);
   const globalState = useSelector((state) => state);
   const [formRegister, setForm] = useState({
-    fullName: '',
     email: '',
-    password: '',
+    error: ''
   });
 
   const sendData = () => {
-    loginWithEmail(formRegister.email, formRegister.password);
+    loginWithEmail(formRegister.email);
   };
 
   const onInputChange = (value, input) => {
@@ -34,7 +36,7 @@ const Login = ({navigation}) => {
   const emptyInput = () => {
     setForm({
       email: '',
-      password: ''
+      password: '',
     });
   };
 
@@ -59,54 +61,47 @@ const Login = ({navigation}) => {
     });
   }
 
-  const loginWithEmail = (email,password) => {
-    if (email === '' || password === '') {
-      alert('Email / Password harap diisi!');
+  const loginWithEmail = (email) => {
+    if (email === '') {
+      setForm({
+        ...formRegister,
+        error: 'Please enter a valid email'
+      }),
+      alert('Email harap diisi!');
       emptyInput();
     } else {
-      auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        navigation.navigate('Home');
-      })
-      .catch(err => {
-        console.log(err);
-        if(err.code === 'auth/invalid-email'){
-          emptyInput();
-          alert('Email/Password Salah');
+      fetch(`${globalState.url}api/auth/checkUser?email=${email}`)
+      .then(result => result.json())
+      .then((res) => {
+        console.log(res.status)
+        if (res.status === 1) {
+          navigation.navigate('Home', { email: res.data.email_user, fname: res.data.fullname });
+        } else {
+          navigation.navigate('Register', { email: email });
         }
+      })
+      .catch((err) => {
+        console.error(err);
       })
     }
   }
 
   return (
     <View style={styles.wrapper.page}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <IconBack source={IconBack} width={20} height={25} onPress={goBack} /> */}
-        <IllustrationLogin
-          width={200}
-          height={120}
-          style={styles.illustration}
-        />
-        <Text style={styles.text.desc}>Please Login to Start your Session</Text>
-        <View style={styles.space(64)} />
+        <View style={styles.space(20)} />
+        <IconBack width={30} height={30} onPress={goBack}/>
+        <View style={styles.space(30)} />
+        <Text style={styles.text.title}>Sign Up/Sign In</Text>
+        <Text style={styles.text.desc}>Please enter your registered e-mail to continue</Text>
         <Input
-          placeholder="Email*"
+          placeholder="e.g. example@mail.com"
           value={formRegister.email}
           onChangeText={(value) => onInputChange(value, 'email')}
         />
-        <View style={styles.space(33)} />
-        <Input
-          placeholder="Password*"
-          value={formRegister.password}
-          onChangeText={(value) => onInputChange(value, 'password')}
-          secureTextEntry={true}
-        />
-        <View style={styles.space(80)} />
-        <Button title="Login" onPress={sendData} />
-        <View style={styles.space(10)} />
-        {/* <Button title="Login Anonymously" onPress={loginAnon} /> */}
-      </ScrollView>
+          <Text style={styles.text.error}>{formRegister.error}</Text>
+          <View style={styles.button}>
+            <Button title="Continue" onPress={sendData} />
+          </View>
     </View>
   );
 };
@@ -115,7 +110,7 @@ const styles = {
   wrapper: {
     page: {
       padding: 20,
-      backgroundColor: '#b7d4ed',
+      backgroundColor: colors.background,
       flex: 1,
     },
   },
@@ -123,18 +118,42 @@ const styles = {
   illustration: {marginTop: 8},
   text: {
     desc: {
-      fontSize: 14,
-      fontWeight: 'bold',
+      fontSize: 18,
+      fontFamily: 'TypoGotikaRegularDemo',
+      // fontWeight: 'bold',
       color: 'black',
       marginTop: 16,
-      maxWidth: 200,
+      marginBottom: 25,
+      // maxWidth: 200,
     },
+    title: {
+      fontSize: 24,
+      fontFamily: 'TypoGotikaBoldDemo',
+      // fontWeight: 'bold',
+      color: 'black',
+      // marginBottom: 16,
+      // maxWidth: 200,
+    },
+    error: {
+      fontSize: 14,
+      fontFamily: 'TypoGotikaRegularDemo',
+      color: 'red',
+      marginTop: 10
+  }
   },
   space: (value) => {
     return {
       height: value,
     };
   },
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    width: '100%',
+  }
 };
 
 export default Login;
