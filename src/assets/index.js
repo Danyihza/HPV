@@ -7,4 +7,6 @@ import SplashScreen from './illustration/splash.png';
 import IconBack from './icon/back';
 import IconMenu from './icon/menu';
 
-export {welcomeAuth, IconBack, IllustrationRegister, IllustrationLogin, SplashScreen, Obat, IconMenu};
+import Skeleton from './skeleton/skeleton';
+
+export {welcomeAuth, IconBack, IllustrationRegister, IllustrationLogin, SplashScreen, Obat, IconMenu, Skeleton};

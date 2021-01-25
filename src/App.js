@@ -25,6 +25,7 @@ import { store } from './redux';
 
 const App = () => {
   
+
   return (
     <Provider store={store}>
       <NavigationContainer>

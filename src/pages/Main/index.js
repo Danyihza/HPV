@@ -8,13 +8,13 @@ import { colors } from '../../utils';
 import { Alert, BackHandler, StatusBar } from 'react-native';
 
 
-const Main = () => {
+
+const Main = ({navigation, route}) => {
     StatusBar.setBarStyle("light-content");
     StatusBar.setBackgroundColor("rgba(0,0,0,0)");
     StatusBar.setTranslucent(true);
     useEffect(() => {
         BackHandler.addEventListener("hardwareBackPress", backAction);
-    
         return () =>
           BackHandler.removeEventListener("hardwareBackPress", backAction);
       }, []);

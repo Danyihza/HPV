@@ -5,5 +5,7 @@ import WelcomeAuth from './WelcomeAuth';
 import Home from './Home';
 import Main from './Main';
 import MainScreen from './MainScreen';
+import DetailScreen from './DetailScreen';
+import HelpScreen from './HelpScreen';
 
-export {Splash, Login, Register, WelcomeAuth, Home, Main, MainScreen};
+export {Splash, Login, Register, WelcomeAuth, Home, Main, MainScreen, DetailScreen, HelpScreen};

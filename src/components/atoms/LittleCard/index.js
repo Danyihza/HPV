@@ -1,20 +1,23 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {colors} from '../../../utils';
 
-const LittleCard = ({title, onPress}) => {
+const LittleCard = ({title, onPress, imageUrl, timeRead}) => {
     return (
-        <View style={styles.wrapper.component}>
-            <View style={styles.wrapper.image}>
-                <Image style={styles.image} source={{
-                    uri: 'https://mmc.tirto.id/image/otf/700x0/2016/08/16/TIRTO-shutterstock_115590688_ratio-16x9.JPG'
-                }}/>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.wrapper.component}>
+                <View style={styles.wrapper.image}>
+                    <Image style={styles.image} source={{
+                        uri: imageUrl
+                    }}/>
+                </View>
+                <View style={styles.wrapper.text}>
+                    <Text style={styles.text.title}>{title}</Text>
+                    <Text style={styles.text.subtitle}>{timeRead} mins read</Text>
+                </View>
             </View>
-            <View style={styles.wrapper.text}>
-                <Text style={styles.text.title}>Spenco footwear now sold under Waco Shoe</Text>
-                <Text style={styles.text.subtitle}>By Dany</Text>
-            </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -48,13 +51,13 @@ const styles = {
             marginTop: 4,
             fontSize: 18,
             lineHeight: 22,
-            fontFamily: 'TypoGotikaRegularDemo',
+            // fontFamily: 'TypoGotikaRegularDemo',
             color: colors.dark,
         },
         subtitle: {
             marginTop: 6,
             fontSize: 14,
-            fontFamily: 'TypoGotikaRegularDemo',
+            // fontFamily: 'TypoGotikaRegularDemo',
             color: colors.default,
             opacity: 1
         }
