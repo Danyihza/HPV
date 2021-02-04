@@ -7,5 +7,6 @@ import Main from './Main';
 import MainScreen from './MainScreen';
 import DetailScreen from './DetailScreen';
 import HelpScreen from './HelpScreen';
+import ChatScreen from './ChatScreen';
 
-export {Splash, Login, Register, WelcomeAuth, Home, Main, MainScreen, DetailScreen, HelpScreen};
+export {Splash, Login, Register, WelcomeAuth, Home, Main, MainScreen, DetailScreen, HelpScreen, ChatScreen};

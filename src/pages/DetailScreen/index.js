@@ -48,7 +48,7 @@ const DetailScreen = ({navigation, route}) => {
         return (
             <View>
                 <ScrollView>
-                    <HeaderDetail onPress={() => navigation.goBack()}/>
+                    <HeaderDetail onPress={() => navigation.navigate('Main')}/>
                     <View style={styles.wrapper.content}>
                         <Text style={styles.text.content}>
                             Badan Pusat Statistik (BPS) Berkolaborasi dengan Kementerian Dalam Negeri merilis dapat kependudukan pada 2020 kemarin. Tercatat pada semester II tahun kemarin jumlah penduduk secara nasional mencapai 271.349.889 jiwa mengacu data Kemendagri dan BPS.

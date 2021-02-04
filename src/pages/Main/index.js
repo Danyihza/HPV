@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Login from '../Login';
 import WelcomeAuth from '../WelcomeAuth';
 import MainScreen from '../MainScreen';
+import HelpScreen from '../HelpScreen';
 import { colors } from '../../utils';
 import { Alert, BackHandler, StatusBar } from 'react-native';
 
@@ -20,7 +22,7 @@ const Main = ({navigation, route}) => {
       }, []);
 
     const backAction = () => {
-        Alert.alert("Hold on!", "Are you sure you want to exit?", [
+        Alert.alert("Caution!", "Are you sure you want to exit?", [
           {
             text: "Cancel",
             onPress: () => null,
@@ -34,7 +36,7 @@ const Main = ({navigation, route}) => {
     const Tab = createMaterialBottomTabNavigator();
         return (
             <Tab.Navigator
-            initialRouteName="MainScreen"
+            initialRouteName="Info"
             activeColor= {colors.active}
             barStyle={{ backgroundColor: colors.default }}
             labeled={false}
@@ -59,10 +61,10 @@ const Main = ({navigation, route}) => {
             />
             <Tab.Screen
                 name="Info"
-                component={Login}
+                component={HelpScreen}
                 options={{
                 tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="face-profile" color={color} size={26} />
+                    <FontAwesome name="question-circle" color={color} size={26} />
                 ),
                 }}
             />

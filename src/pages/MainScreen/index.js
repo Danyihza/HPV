@@ -10,6 +10,7 @@ import { IconMenu } from '../../assets';
 import { useSelector } from 'react-redux';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
+import { CommonActions } from '@react-navigation/native';
 
 
 
@@ -89,6 +90,7 @@ const MainScreen = ({navigation, route}) => {
         })
         .catch(error => {
             console.error(error);
+            alert(error)
         });
     }
 
@@ -102,7 +104,26 @@ const MainScreen = ({navigation, route}) => {
     }
 
     const goTo = (screen, id) => {
-        navigation.navigate(screen,{id_article: id});
+        // navigation.navigate(screen,{id_article: id});
+        const reset = CommonActions.reset({
+            index: 0,
+            routes:[
+                {
+                    name: screen,
+                    params: {
+                        id_article: id
+                    }
+                }
+                // navigation.navigate({
+                //     routeName: screen,
+                //     params: {
+                //         id_article: id
+                //     }
+                // })
+            ],
+            // routes:[{name: screen}]
+        });
+        navigation.dispatch(reset);
     }
         return (
             <View>

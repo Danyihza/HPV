@@ -15,9 +15,9 @@ const Splash = ({navigation}) => {
             if (userData != undefined || userData != null) {
                 navigation.replace('Main');
             } else {
-                navigation.replace('WelcomeAuth');
+                navigation.replace('Main');
             }
-        },2000);
+        },500); //FIXME: 2000
     });
 
     return (

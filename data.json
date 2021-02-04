@@ -1,0 +1,15 @@
+{
+    "messages" : [ {
+      "incoming" : true,
+      "message" : "Halo Nuge"
+    }, {
+      "incoming" : false,
+      "message" : "Halo Juga"
+    }, {
+      "incoming" : true,
+      "message" : "Ngumpul yuk, udah lama nih nggak bareng"
+    }, {
+      "incoming" : false,
+      "message" : "Males ah, karena ngumpul itu hanya sebuah mitos yang akan angker pada waktunya"
+    } ]
+  }

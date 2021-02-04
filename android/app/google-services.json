@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "199117070824",
+    "firebase_url": "https://hpv-reactnative-default-rtdb.firebaseio.com",
     "project_id": "hpv-reactnative",
     "storage_bucket": "hpv-reactnative.appspot.com"
   },
